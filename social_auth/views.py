@@ -165,7 +165,7 @@ def complete_process(request, backend, *args, **kwargs):
 
         # stote is_new status in session
         is_new = getattr(user, 'is_new', False)
-        request.session['is_new'] = is_new
+        request.session['new_user'] = is_new
 
         # Remove possible redirect URL from session, if this is a new account,
         # send him to the new-users-page if defined.
