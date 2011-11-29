@@ -163,10 +163,14 @@ def complete_process(request, backend, *args, **kwargs):
         # store last login backend name in session
         request.session[SOCIAL_AUTH_LAST_LOGIN] = social_user.provider
 
+        # stote is_new status in session
+        is_new = getattr(user, 'is_new', False)
+        request.session['is_new'] = is_new
+
         # Remove possible redirect URL from session, if this is a new account,
         # send him to the new-users-page if defined.
         url = NEW_USER_REDIRECT if NEW_USER_REDIRECT and \
-                                   getattr(user, 'is_new', False) else \
+                                   is_new else \
               request.session.pop(REDIRECT_FIELD_NAME, '') or \
               DEFAULT_REDIRECT
     else:
